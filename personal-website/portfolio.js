@@ -56,6 +56,7 @@
             <strong>${project.type}</strong>
             <p>${project.shortSummary}</p>
             <div class="portfolio-tag-list"></div>
+            <div class="portfolio-acronym-list"></div>
           </aside>
         </div>
         <div class="portfolio-gallery"></div>
@@ -64,6 +65,16 @@
 
     const tagList = page.querySelector(".portfolio-tag-list");
     [subfieldLabel, ...project.tags.slice(0, 7)].forEach((tag) => tagList.appendChild(buildTag(tag)));
+
+    const acronymList = page.querySelector(".portfolio-acronym-list");
+    (project.acronyms || []).slice(0, 4).forEach((item) => {
+      const row = document.createElement("p");
+      const label = document.createElement("strong");
+      label.textContent = item.acronym;
+      row.appendChild(label);
+      row.append(`: ${item.meaning}`);
+      acronymList.appendChild(row);
+    });
 
     const gallery = page.querySelector(".portfolio-gallery");
     primaryImages.forEach((image) => gallery.appendChild(createImageTile(image)));

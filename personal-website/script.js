@@ -23,6 +23,7 @@
   const projectGrid = document.getElementById("projectGrid");
   const filterChips = document.getElementById("filterChips");
   const categoryMenu = document.getElementById("categoryMenu");
+  const portfolioMap = document.getElementById("portfolioMap");
   const labResearchPanel = document.getElementById("labResearchPanel");
   const activeFilterBanner = document.getElementById("activeFilterBanner");
   const clearFiltersButton = document.getElementById("clearFilters");
@@ -82,6 +83,7 @@
       renderCategoryMenu();
       renderLabResearchPanel();
       renderFilterChips();
+      renderPortfolioMap();
       renderProjectGrid();
       updateActiveFilterBanner();
     } catch (error) {
@@ -532,6 +534,7 @@
     state.filter = { category, subfield };
     renderCategoryMenu();
     renderLabResearchPanel();
+    renderPortfolioMap();
     renderProjectGrid();
     renderFilterChips();
     updateActiveFilterBanner();
@@ -725,6 +728,72 @@
     });
   }
 
+  function renderPortfolioMap() {
+    if (!portfolioMap) {
+      return;
+    }
+
+    portfolioMap.innerHTML = "";
+    const header = document.createElement("div");
+    header.className = "portfolio-map-header";
+    header.innerHTML = `
+      <div>
+        <p class="kicker">Portfolio Map</p>
+        <h3>Explore the work as a technical story.</h3>
+      </div>
+      <p class="section-copy">A recruiter-friendly overview that connects project families, evidence, and interview talking points without hiding the actual project cards.</p>
+    `;
+
+    const track = document.createElement("div");
+    track.className = "portfolio-map-track";
+    store.categoryDefinitions.forEach((category, index) => {
+      const projects = state.projects.filter((project) => project.category === category.slug);
+      const node = document.createElement("button");
+      node.className = "portfolio-map-node";
+      if (state.filter.category === category.slug) {
+        node.classList.add("active");
+      }
+      node.type = "button";
+      node.style.setProperty("--node-index", index);
+      const indexLabel = document.createElement("span");
+      indexLabel.textContent = String(index + 1).padStart(2, "0");
+      const title = document.createElement("strong");
+      title.textContent = category.label;
+      const count = document.createElement("small");
+      count.textContent = `${projects.length} project${projects.length === 1 ? "" : "s"}`;
+      node.appendChild(indexLabel);
+      node.appendChild(title);
+      node.appendChild(count);
+      node.addEventListener("click", () => applyFilter(category.slug));
+      track.appendChild(node);
+    });
+
+    const featured = document.createElement("div");
+    featured.className = "portfolio-map-featured";
+    const featuredProjects = (state.filter.category
+      ? state.projects.filter((project) => project.category === state.filter.category)
+      : state.projects
+    ).slice(0, 4);
+    featuredProjects.forEach((project) => {
+      const card = document.createElement("button");
+      card.className = "portfolio-map-card";
+      card.type = "button";
+      card.style.setProperty("--image-url", `url('${project.coverImage}')`);
+      const categoryLabel = document.createElement("span");
+      categoryLabel.textContent = project.categoryLabel;
+      const projectTitle = document.createElement("strong");
+      projectTitle.textContent = project.title;
+      card.appendChild(categoryLabel);
+      card.appendChild(projectTitle);
+      card.addEventListener("click", () => openProjectModal(project));
+      featured.appendChild(card);
+    });
+
+    portfolioMap.appendChild(header);
+    portfolioMap.appendChild(track);
+    portfolioMap.appendChild(featured);
+  }
+
   function buildTag(tagText) {
     const tag = document.createElement("span");
     tag.className = "tag";
@@ -747,6 +816,17 @@
     const modalTags = document.getElementById("modalTags");
     modalTags.innerHTML = "";
     project.tags.forEach((tag) => modalTags.appendChild(buildTag(tag)));
+
+    const modalAcronyms = document.getElementById("modalAcronyms");
+    if (modalAcronyms) {
+      modalAcronyms.innerHTML = "";
+      (project.acronyms || []).forEach((item) => {
+        const row = document.createElement("span");
+        row.className = "acronym-pill";
+        row.textContent = `${item.acronym}: ${item.meaning}`;
+        modalAcronyms.appendChild(row);
+      });
+    }
 
     const modalGallery = document.getElementById("modalGallery");
     modalGallery.innerHTML = "";
@@ -1129,6 +1209,7 @@
     renderCategoryMenu();
     renderLabResearchPanel();
     renderFilterChips();
+    renderPortfolioMap();
     renderProjectGrid();
     updateActiveFilterBanner();
     attachRequestListeners();

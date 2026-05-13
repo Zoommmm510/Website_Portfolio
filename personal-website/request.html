@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Request Portfolio | Sumit Singh</title>
+  <meta
+    name="description"
+    content="Verified request form for recruiters, engineering professionals, and research collaborators."
+  >
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css?v=14">
+</head>
+<body class="theme-dark">
+  <div class="site-frame">
+    <header class="topbar">
+      <a class="brand-lockup" href="index.html#home">
+        <span class="brand-seal">SS</span>
+        <span>
+          <strong id="heroName">Sumit Singh</strong>
+          <small>Aerospace Engineering Portfolio</small>
+        </span>
+      </a>
+
+      <nav class="topnav">
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html">Back To Site</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="request-panel request-page-panel" id="request-portfolio">
+        <div class="section-header center request-title-block">
+          <p class="kicker">Request Portfolio</p>
+          <h2>For recruiters and engineering professionals.</h2>
+          <p class="section-copy">
+            Please verify identity before submitting. This local version demonstrates the flow,
+            while real company verification and automatic email delivery would require a backend integration.
+          </p>
+        </div>
+
+        <div class="request-shell">
+          <div class="request-steps">
+            <div class="step-dot active">1</div>
+            <div class="step-line"></div>
+            <div class="step-dot">2</div>
+            <span class="step-label">Identity Verification</span>
+          </div>
+
+          <form class="request-form" id="requestForm">
+            <div class="request-form-header">
+              <p class="kicker">Identity Verification</p>
+              <p class="helper-text" id="requestContextNotice" hidden></p>
+            </div>
+
+            <div class="field-grid two-up">
+              <label class="field">
+                <span>First Name *</span>
+                <input id="firstName" name="firstName" type="text" autocomplete="given-name" placeholder="Jane" required>
+              </label>
+              <label class="field">
+                <span>Last Name *</span>
+                <input id="lastName" name="lastName" type="text" autocomplete="family-name" placeholder="Smith" required disabled>
+              </label>
+            </div>
+
+            <label class="field">
+              <span>Work Email *</span>
+              <input id="workEmail" name="workEmail" type="email" placeholder="jane@company.com" required disabled>
+              <small>Must be an official company or institution email. The portfolio owner email is accepted for demo testing.</small>
+            </label>
+
+            <label class="field">
+              <span>Field *</span>
+              <select id="engineeringField" name="engineeringField" required disabled>
+                <option value="">Select Field...</option>
+              </select>
+            </label>
+
+            <label class="field institution-field">
+              <span>Company / Institution Name *</span>
+              <div class="institution-combobox">
+                <input
+                  id="institution"
+                  name="institution"
+                  type="text"
+                  placeholder="Open dropdown or type company/institution name"
+                  autocomplete="off"
+                  role="combobox"
+                  aria-autocomplete="list"
+                  aria-controls="institutionOptions"
+                  aria-expanded="false"
+                  required
+                  disabled
+                >
+                <div id="institutionOptions" class="institution-options" role="listbox" hidden></div>
+              </div>
+              <small>Open the dropdown to browse field-specific options, or type a few letters to filter faster. Exact names are accepted too.</small>
+            </label>
+
+            <div class="verify-row">
+              <button id="verifyButton" class="button-primary" type="button" disabled>Verify Identity</button>
+              <p class="helper-text" id="verificationStatus">Awaiting required fields.</p>
+            </div>
+
+            <div id="postVerifyFields" hidden>
+              <label class="field">
+                <span>Purpose of the Request</span>
+                <select id="requestPurpose" name="requestPurpose">
+                  <option value="">Select purpose</option>
+                  <option value="Job Opportunity">Job Opportunity</option>
+                  <option value="Internship Opportunity">Internship Opportunity</option>
+                  <option value="Research Collaboration">Research Collaboration</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span>Additional Context</span>
+                <textarea
+                  id="requestNotes"
+                  name="requestNotes"
+                  rows="4"
+                  placeholder="Role description, team info, lab details, or collaboration context."
+                ></textarea>
+              </label>
+
+              <button class="button-primary" id="submitRequestButton" type="submit" disabled>Submit Request</button>
+            </div>
+
+            <div class="request-result" id="requestResult" hidden></div>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js?v=1"></script>
+  <script src="cloud-store.js?v=1"></script>
+  <script src="company-directory.js?v=2"></script>
+  <script src="data.js?v=16"></script>
+  <script src="script.js?v=18"></script>
+</body>
+</html>

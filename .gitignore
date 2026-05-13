@@ -1,0 +1,14 @@
+# Local-only admin tools and setup notes.
+admin.html
+admin.js
+personal-website/admin.html
+personal-website/admin.js
+personal-website/supabase-schema.sql
+personal-website/README.md
+
+# Editable source library that is not part of the public website artifact.
+projects/
+
+# Local browser/test output.
+.edge-profile/
+_site/

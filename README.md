@@ -1,26 +1,19 @@
-# Aerospace Portfolio Website
+# Website Portfolio Repository
 
-This is a local multi-page portfolio app for an undergraduate aerospace engineering student.
+This repo is organized around the GitHub Pages personal website.
 
-## What it includes
+## Folder Map
 
-- `index.html` for the public-facing portfolio site
-- `request.html` for verified portfolio access requests
-- `portfolio.html` for a print-ready generated portfolio packet
-- `admin.html` for adding and editing projects locally
-- Category cards with hoverable sub-fields
-- Filterable project cards and a project detail modal
-- A staged `Request Portfolio` form with sequential field unlocks
-- Field-specific, alphabetized company/institution dropdowns
-- Imported California aerospace/aeronautical company directory in `company-directory.js`
-- Admin tools for suggested gallery ordering and generated portfolio pages
-- Local browser storage for drafts, with optional Supabase cloud sync for GitHub Pages
+- `personal-website/` contains the public website pages, shared JavaScript, CSS, Supabase public client config, and deployment-facing files.
+- `.github/workflows/deploy-pages.yml` publishes only selected public files from `personal-website/` to GitHub Pages.
+- Admin tools such as `admin.html`, `admin.js`, and `supabase-schema.sql` are local-only and ignored by Git.
 
-## Run locally
+## Run Locally
 
-Open `index.html` directly, or serve the folder:
+Recommended local run command:
 
 ```powershell
+cd personal-website
 python -m http.server 5500
 ```
 
@@ -30,70 +23,43 @@ Then open:
 http://localhost:5500
 ```
 
-If port `5500` is blocked on your machine, try `9000` instead.
+If you start the server from the repo root instead, the public pages still work through lightweight forwarding pages:
 
-## How to use the admin page
+```powershell
+python -m http.server 5500
+```
 
-1. Open `http://localhost:5500/admin.html`
-2. Update your name, school, year, and notification email
-3. Add projects with category, sub-field, descriptions, tags, and image paths
-4. Upload project images or use hosted image URLs
-5. If Supabase is configured, sign in under Cloud Sync and push/pull shared data
+```text
+http://localhost:5500/index.html
+```
 
-## GitHub Pages deployment
+## Local Admin
 
-This repo includes a GitHub Actions workflow at `.github/workflows/deploy-pages.yml`.
-It publishes only the public site files to GitHub Pages:
-
-- `index.html`
-- `request.html`
-- `portfolio.html`
-- shared CSS/JS/data files
-- Supabase public client config
-
-It does not publish:
-
-- `admin.html`
-- `admin.js`
-- `supabase-schema.sql`
-- this README
-
-To enable it on GitHub:
-
-1. Push the repo to GitHub.
-2. Go to repository Settings -> Pages.
-3. Under Build and deployment, set Source to GitHub Actions.
-4. Push to `main` or run the workflow manually.
-5. Add your custom domain in Settings -> Pages when ready.
-
-Keep using local admin at:
+Admin remains local/private and is not pushed to GitHub or published to GitHub Pages. If the local admin files are present in your working copy, use:
 
 ```text
 http://localhost:5500/admin.html
 ```
 
-## Supabase cloud setup
+The public website reads project data from `personal-website/data.js` and optional Supabase cloud data.
 
-GitHub Pages is static, so shared admin edits need a backend. This repo is wired for Supabase:
+## GitHub Pages
 
-1. Create a Supabase project.
-2. Run `supabase-schema.sql` in the Supabase SQL editor.
-3. Create your admin user in Supabase Authentication.
-4. Add that user to `portfolio_admins` using the SQL comment at the bottom of `supabase-schema.sql`.
-5. Copy your Supabase project URL and anon/publishable key into `supabase-config.js`.
-6. Start local admin, sign in under Cloud Sync, then choose `Push Local Data`.
+The GitHub Actions workflow deploys from `personal-website/` and publishes only:
 
-The public GitHub Pages site will read projects/settings from Supabase. The request form will insert requests into Supabase when configured. Uploaded admin images go to the public `portfolio-media` storage bucket after you sign in.
+- `index.html`
+- `request.html`
+- `portfolio.html`
+- `favicon.svg`
+- shared CSS/JS/data files
 
-Never put a Supabase service-role key in browser files or GitHub Pages.
+It excludes:
 
-## Important note about verification and email
+- `personal-website/admin.html`
+- `personal-website/admin.js`
+- `personal-website/supabase-schema.sql`
+- repo documentation
 
-The `Request Portfolio` flow is still a lightweight verification flow:
+That keeps the public site focused on the user-facing pages while local admin and project source materials stay out of the published artifact.
 
-- It unlocks fields progressively
-- It checks for a professional-style work email
-- It stores requests in Supabase when configured
-- It falls back to local browser storage and a prefilled email draft when Supabase is unavailable
-
-True company verification, LinkedIn verification, and automatic email notifications require external verification/email APIs.
+To use GitHub Pages, open the repository on GitHub, go to `Settings -> Pages`, and set `Build and deployment` to `GitHub Actions`.
