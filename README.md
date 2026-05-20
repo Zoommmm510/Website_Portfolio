@@ -1,65 +1,36 @@
-# Website Portfolio Repository
+# Simple Local Project Website
 
-This repo is organized around the GitHub Pages personal website.
+## Push Changes To GitHub
 
-## Folder Map
+### Prompt To Ask Codex
 
-- `personal-website/` contains the public website pages, shared JavaScript, CSS, Supabase public client config, and deployment-facing files.
-- `.github/workflows/deploy-pages.yml` publishes only selected public files from `personal-website/` to GitHub Pages.
-- Admin tools such as `admin.html`, `admin.js`, and `supabase-schema.sql` are local-only and ignored by Git.
-
-## Run Locally
-
-Recommended local run command:
-
-```powershell
-cd personal-website
-python -m http.server 5500
-```
-
-Then open:
+Copy and paste this prompt when you want Codex to push changes to GitHub for you:
 
 ```text
-http://localhost:5500
+Please push my current website changes to GitHub. Check git status, commit with a clear message, and push to the current branch. If anything looks risky, ask me first.
 ```
 
-If you start the server from the repo root instead, the public pages still work through lightweight forwarding pages:
+## Behind the Door, GPT does the following 
 
-```powershell
-python -m http.server 5500
+Use these commands when you are ready to save your changes and send them to GitHub:
+
+```bash
+git status
+git add .
+git commit -m "Describe what changed"
+git push
 ```
 
-```text
-http://localhost:5500/index.html
+What each command does:
+
+- `git status` shows which files changed.
+- `git add .` adds all changed files to the commit.
+- `git commit -m "Describe what changed"` saves the changes locally with a short message.
+- `git push` sends the commit to GitHub.
+
+If this is the first time pushing a branch, use:
+
+```bash
+git push -u origin main
 ```
 
-## Local Admin
-
-Admin remains local/private and is not pushed to GitHub or published to GitHub Pages. If the local admin files are present in your working copy, use:
-
-```text
-http://localhost:5500/admin.html
-```
-
-The public website reads project data from `personal-website/data.js` and optional Supabase cloud data.
-
-## GitHub Pages
-
-The GitHub Actions workflow deploys from `personal-website/` and publishes only:
-
-- `index.html`
-- `request.html`
-- `portfolio.html`
-- `favicon.svg`
-- shared CSS/JS/data files
-
-It excludes:
-
-- `personal-website/admin.html`
-- `personal-website/admin.js`
-- `personal-website/supabase-schema.sql`
-- repo documentation
-
-That keeps the public site focused on the user-facing pages while local admin and project source materials stay out of the published artifact.
-
-To use GitHub Pages, open the repository on GitHub, go to `Settings -> Pages`, and set `Build and deployment` to `GitHub Actions`.

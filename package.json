@@ -1,0 +1,14 @@
+{
+  "name": "website-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local npm dev server for the static portfolio website.",
+  "scripts": {
+    "dev": "vite --host localhost --port 5500",
+    "start": "npm run dev",
+    "preview": "vite preview --host localhost --port 5501"
+  },
+  "devDependencies": {
+    "vite": "^8.0.13"
+  }
+}
