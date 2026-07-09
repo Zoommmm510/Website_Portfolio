@@ -1,0 +1,44 @@
+{
+    "id":  "proj-1",
+    "title":  "Poly Tank Motor Rig",
+    "category":  "CAD Projects",
+    "category_slug":  "cad-projects",
+    "subfield":  "Rig Design",
+    "type":  "CAD / Fabrication",
+    "description":  "CAD-driven rig design work focused on geometry, mounting strategy, access, and build readiness.",
+    "short_summary":  "A poly tank motor rig developed around practical fit, support, and fabrication constraints.",
+    "details":  "The work began with a need for a functional motor rig that could be represented clearly in CAD and prepared for practical fabrication. I translated the physical constraints into a structured rig layout, refined mounting and support geometry, and used the model to communicate fit, access, and manufacturability decisions. The finished project demonstrates practical design judgment, assembly thinking, and an ability to turn a rough mechanical need into a usable engineering layout.",
+    "tags":  [
+                 "CAD",
+                 "Rig Design",
+                 "Fabrication",
+                 "Mechanical Design"
+             ],
+    "skillset_key":  {
+                         "primary":  [
+                                         "CAD",
+                                         "Rig Design",
+                                         "Fabrication"
+                                     ],
+                         "software_tools":  [
+                                                "CAD"
+                                            ],
+                         "engineering_processes":  [
+                                                       "Fabrication"
+                                                   ],
+                         "domain_skills":  [
+                                               "Rig Design",
+                                               "Mechanical Design"
+                                           ]
+                     },
+    "acronyms":  [
+
+                 ],
+    "images":  {
+                   "folder":  "images",
+                   "cover":  "",
+                   "gallery":  [
+
+                               ]
+               }
+}
